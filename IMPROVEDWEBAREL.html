@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>My Profile</title>
+  <style>
+    /* === CSS VARIABLES THEME COLORS === */
+    :root {
+      --bg-gradient-start: #001f3f;
+      --bg-gradient-middle: #000000;
+      --bg-gradient-end: #000000;
+      --text-color: #00bfff;
+      --btn-bg-color: #00bfff;
+      --btn-text-color: #000;
+      --btn-hover-bg: #009acd;
+      --card-bg: rgba(17, 17, 17, 0.8);
+      --card-shadow-color: rgba(0, 191, 255, 0.4);
+      --gallery-bg: rgba(17, 17, 17, 0.7);
+      --gallery-border-color: #00bfff;
+      --lightbox-bg: rgba(0, 0, 0, 0.85);
+      --close-btn-bg: #00bfff;
+    }
+
+    /* BACKGROUND GRADIENT ANIMASI */
+    body {
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(
+        -45deg,
+        var(--bg-gradient-start),
+        var(--bg-gradient-middle),
+        var(--bg-gradient-end),
+        var(--bg-gradient-end)
+      );
+      background-size: 400% 400%;
+      animation: backgroundMove 15s ease infinite;
+      color: var(--text-color);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    @keyframes backgroundMove {
+      0% {
+        background-position: 0% 50%;
+      }
+      50% {
+        background-position: 100% 50%;
+      }
+      100% {
+        background-position: 0% 50%;
+      }
+    }
+
+    /* PROFIL CARD */
+    .profile-card {
+      background: var(--card-bg);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 0 15px var(--card-shadow-color);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      max-width: 400px;
+      text-align: center;
+      margin-top: 50px;
+      opacity: 1;
+      transform: translateY(0);
+      transition: background-color 0.5s ease, box-shadow 0.5s ease;
+    }
+
+    /* FOTO PROFIL ANIMASI PULSE */
+    .profile-pic {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 4px solid var(--btn-bg-color);
+      margin-bottom: 20px;
+      animation: pulseGlow 2.5s ease-in-out infinite;
+      transition: border-color 0.5s ease;
+    }
+
+    @keyframes pulseGlow {
+      0% {
+        box-shadow: 0 0 10px var(--btn-bg-color);
+      }
+      50% {
+        box-shadow: 0 0 25px var(--btn-bg-color), 0 0 35px var(--btn-bg-color);
+      }
+      100% {
+        box-shadow: 0 0 10px var(--btn-bg-color);
+      }
+    }
+
+    h1 {
+      font-size: 22px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      color: var(--text-color);
+      text-shadow: 0 0 10px var(--text-color);
+      margin: 10px 0;
+      transition: color 0.5s ease, text-shadow 0.5s ease;
+    }
+
+    .info {
+      margin: 5px 0;
+      transition: color 0.5s ease;
+      color: var(--text-color);
+    }
+
+    .label {
+      font-weight: bold;
+      color: var(--text-color);
+    }
+
+    .hobbies {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 15px 0;
+      color: var(--text-color);
+    }
+
+    .btn {
+      padding: 10px 20px;
+      background-color: var(--btn-bg-color);
+      color: var(--btn-text-color);
+      text-decoration: none;
+      border-radius: 25px;
+      font-weight: bold;
+      margin-top: 20px;
+      display: inline-block;
+      cursor: pointer;
+      border: none;
+      user-select: none;
+      transition: background-color 0.3s ease, transform 0.2s ease, color 0.3s ease;
+    }
+
+    .btn:hover {
+      background-color: var(--btn-hover-bg);
+      transform: scale(1.05);
+    }
+
+    .instagram-btn {
+      background-color: var(--btn-hover-bg);
+      color: var(--btn-text-color);
+      margin-bottom: 10px;
+    }
+
+    .instagram-btn:hover {
+      background-color: var(--btn-bg-color);
+    }
+
+    /* BAGIAN GALERI */
+    .section {
+      background: var(--gallery-bg);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      border-radius: 15px;
+      max-width: 1000px;
+      width: 90%;
+      margin: 50px 0;
+      padding: 20px;
+      box-sizing: border-box;
+      text-align: center;
+      color: var(--text-color);
+      box-shadow: 0 0 15px var(--card-shadow-color);
+      transition: background-color 0.5s ease;
+    }
+
+    .section h2 {
+      margin-bottom: 10px;
+      font-size: 28px;
+      text-shadow: 0 0 10px var(--text-color);
+    }
+
+    .section p {
+      margin-bottom: 25px;
+      font-size: 16px;
+      color: #a0dfff;
+    }
+
+    .gallery {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    .gallery img {
+      width: 200px;
+      height: 150px;
+      object-fit: cover;
+      border: 5px solid var(--gallery-border-color);
+      border-radius: 10px;
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+      animation: float 4s ease-in-out infinite, glow 6s ease-in-out infinite;
+    }
+
+    .gallery img:hover {
+      transform: scale(1.08);
+      box-shadow: 0 0 25px rgba(0, 191, 255, 0.9);
+      border-color: rgb(12, 25, 62);
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+
+    @keyframes glow {
+      0%, 100% { box-shadow: 0 0 5px rgba(0,191,255,0.2); }
+      50% { box-shadow: 0 0 15px rgba(0,191,255,0.6); }
+    }
+
+    /* LIGHTBOX */
+    .lightbox {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      background: var(--lightbox-bg);
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      z-index: 1000;
+      transition: background 0.5s ease;
+    }
+
+    .lightbox.active {
+      display: flex;
+    }
+
+    .lightbox img {
+      max-width: 90%;
+      max-height: 80vh;
+      border: 5px solid var(--gallery-border-color);
+      border-radius: 10px;
+      transition: border-color 0.5s ease;
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 20px;
+      right: 30px;
+      font-size: 30px;
+      font-weight: bold;
+      color: var(--btn-bg-color);
+      cursor: pointer;
+      user-select: none;
+      background-color: transparent;
+      border: none;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 600px) {
+      .gallery img {
+        width: 130px;
+        height: 100px;
+      }
+
+      h1 {
+        font-size: 18px;
+      }
+
+      .section h2 {
+        font-size: 22px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- PROFILE -->
+  <div class="profile-card">
+    <img src="foto 4.jpg" alt="Profile" class="profile-pic" />
+
+    <h1>Shandi Alfatihah Farrel Farazha</h1>
+    <div class="info">24110100071</div>
+    <div class="info">Cakrawala University</div>
+
+    <div class="info">
+      <span class="label">Hobi:</span>
+      <ul class="hobbies">
+        <li>Theater</li>
+        <li>Music</li>
+        <li>Motorcycle</li>
+      </ul>
+    </div>
+
+    <p>Art and Coffee</p>
+
+    <a href="https://instagram.com/ffarazha" class="btn instagram-btn" target="_blank" rel="noopener noreferrer">My Instagram</a>
+  </div>
+
+  <!-- GALERI -->
+  <section class="section" id="motor">
+    <h2>Motor</h2>
+    <p></p>
+    <div class="gallery">
+      <img src="motor 1.jpg" alt="Motor 1" />
+      <img src="motor 3.jpg" alt="Motor 3" />
+      <img src="motor 4.jpg" alt="Motor 4" />
+      <img src="friends1.jpg" alt="Motor 4" />
+    </div>
+  </section>
+
+  <section class="section" id="pacar">
+    <h2>This Random People</h2>
+    <p></p>
+    <div class="gallery">
+      <img src="awa1.jpg" alt="Pacar 1" />
+      <img src="awa2.jpg" alt="Pacar 2" />
+      <img src="awa3.jpg" alt="Pacar 3" />
+      <img src="awa4.jpg" alt="Pacar 4" />
+    </div>
+  </section>
+
+  <section class="section" id="saya">
+    <h2>Myself</h2>
+    <p></p>
+    <div class="gallery">
+      <img src="arel1.jpg" alt="Saya 1" />
+      <img src="arel2.jpg" alt="Saya 2" />
+      <img src="areel3.jpg" alt="Saya 3" />
+      <img src="arel4.jpg" alt="Saya 4" />
+    </div>
+  </section>
+
+  <!-- LIGHTBOX -->
+  <div class="lightbox" id="lightbox">
+    <button class="close-btn" id="closeBtn">&times;</button>
+    <img src="" alt="Lightbox Image" id="lightboxImg" />
+  </div>
+
+  <script>
+    // SCRIPT LIGHTBOX
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightboxImg');
+    const closeBtn = document.getElementById('closeBtn');
+
+    // Event untuk setiap gambar di gallery
+    document.querySelectorAll('.gallery img').forEach(img => {
+      img.addEventListener('click', () => {
+        lightboxImg.src = img.src;
+        lightboxImg.alt = img.alt;
+        lightbox.classList.add('active');
+      });
+    });
+
+    closeBtn.addEventListener('click', () => {
+      lightbox.classList.remove('active');
+      lightboxImg.src = '';
+      lightboxImg.alt = '';
+    });
+
+    // Tutup lightbox jika klik di luar gambar
+    lightbox.addEventListener('click', (e) => {
+      if (e.target === lightbox) {
+        lightbox.classList.remove('active');
+        lightboxImg.src = '';
+        lightboxImg.alt = '';
+      }
+    });
+  </script>
+</body>
+</html>
+git init
+git add .
+git commit -m "Initial commit"
+git remote add origin https://github.com/EllsPortofolio/my-website.git
+git branch -M main
+git push -u origin main
